@@ -74,10 +74,10 @@ namespace GME1011A3
                 //hero deals damage first. CHECK IF THIS IS WORKING. (where is the moment that the damage is asked again?)
                 Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
 
-                int heroAttack = rng.Next(0,3);
+                int specialAttack = rng.Next(0,3);
                 int heroDamage = 0;
 
-                if (hero.GetStrength() > 0 && heroAttack == 2)
+                if (hero.GetStrength() > 0 && specialAttack == 2)
                     heroDamage = hero.Berserk();
                 else
                     heroDamage = hero.DealDamage();
@@ -109,7 +109,17 @@ namespace GME1011A3
                 }
                 else //baddie survived, now attacks the hero
                 {
-                    int baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
+                    //Code to make the minion do their special attack. 33% of chances depending on the type of the enemy.
+                    specialAttack = rng.Next(0,3);
+                    int baddieDamage = 0;
+
+                    if (specialAttack == 2 && baddies[indexOfEnemy] is Goblin)
+                        baddieDamage = ((Goblin)baddies[indexOfEnemy]).GoblinBite();
+                    else if (specialAttack == 2 && baddies[indexOfEnemy] is Skellie)
+                        baddieDamage = ((Skellie)baddies[indexOfEnemy]).SkellieRattle();
+                    else
+                        baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
+                    
                     Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
                     hero.TakeDamage(baddieDamage); //hero takes damage
 
