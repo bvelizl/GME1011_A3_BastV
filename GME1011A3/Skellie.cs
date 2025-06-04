@@ -8,9 +8,6 @@ namespace GME1011A3
 {
     internal class Skellie : Minion
     {
-        /*
-         * GME1011_A3_BastV
-         */
 
         //Constructor - Skellies don't have armour, set it to 0
         public Skellie(int health, int armour) : base(health, armour)
