@@ -51,6 +51,7 @@ namespace GME1011A3
             if (strength > 0)
             {
                 strength--;
+                Console.WriteLine("AAAH!");
                 Random rng = new Random();
                 return rng.Next(10, 20) * strength; //return this damage to deal to an enemy in Main()
             }
