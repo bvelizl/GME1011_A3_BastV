@@ -71,9 +71,18 @@ namespace GME1011A3
                     indexOfEnemy++;
                 }
 
-                //hero deals damage first
+                //hero deals damage first. CHECK IF THIS IS WORKING. (where is the moment that the damage is asked again?)
                 Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
-                int heroDamage = hero.DealDamage();  //how much damage?
+
+                int heroAttack = rng.Next(0,3);
+                int heroDamage = 0;
+
+                if (hero.GetStrength() > 0 && heroAttack == 2)
+                    heroDamage = hero.Berserk();
+                else
+                    heroDamage = hero.DealDamage();
+
+                //How much damage?
                 Console.WriteLine("Hero deals " + heroDamage + " heroic damage."); 
                 baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
 
