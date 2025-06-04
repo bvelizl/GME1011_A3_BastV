@@ -10,28 +10,43 @@ namespace GME1011A3
             //Epic battle goes here :)
             Random rng = new Random();
 
-            Fighter hero = new Fighter(100, "Aaron", 5); //TODO: Get these arguments from the user - health, name, strength
+            //Prompting the user for the hero's values.
+            Console.Write("How much health do you want for your hero? (1 - 100): ");
+            int health = int.Parse(Console.ReadLine());
+
+            Console.Write("What is the name of your hero?: ");
+            string name = Console.ReadLine();
+
+            Console.Write("What about the strength of your hero? (1 - 10): ");
+            int strength = int.Parse(Console.ReadLine());
+
+            //Empty line just to make it easier to read the values of our hero.
+            Console.WriteLine();
+
+            //Printing the hero that the user created.
+            Fighter hero = new Fighter(health, name, strength);
             Console.WriteLine("Here is our heroic hero: " + hero + "\n\n");
 
+            //Prompting the user to decide how many enemies will fight the hero.
+            Console.Write("How many enemies you want your hero to fight against? (1 - 5): ");
 
-            int numBaddies = 5; //TODO: Get number of baddies from the user
+            int numBaddies = int.Parse(Console.ReadLine());
             int numAliveBaddies = numBaddies;
 
 
-            //TODO: change this so that it can contain goblins and skellies! Just change the type of the list!!
-            List<Goblin> baddies = new List<Goblin>();
+            //List that contain Goblins and Skellies as foes of the hero.
+            List<Minion> baddies = new List<Minion>();
 
 
-
+            //Now each baddie have 50% chances to be a Goblin, or a Skellie.
             for (int i = 0; i < numBaddies; i++)
             {
+                int baddieRng = rng.Next(0,2);
 
-
-                //TODO: each baddie should have 50% chance of being a goblin, 50% chance of
-                //being a skellie. A skellie should have random health between 25 and 30, and 0 armour (remember
-                //skellie armour is 0 anyway)
-                baddies.Add(new Goblin(rng.Next(30, 35), rng.Next(1, 5), rng.Next(1, 10)));
-            
+                if(baddieRng == 0)
+                    baddies.Add(new Goblin(rng.Next(30, 36), rng.Next(1, 5), rng.Next(1, 10)));
+                else
+                    baddies.Add(new Skellie(rng.Next(25, 31), 0));
             
             }
 
