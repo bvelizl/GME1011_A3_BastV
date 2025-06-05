@@ -33,7 +33,7 @@ namespace GME1011A3
         {
             Console.WriteLine("BUFULA!");
             Random rng = new Random();
-            return rng.Next(1, 4) * _magic;
+            return _magic * rng.Next(1,4);
         }
 
         public override string ToString()

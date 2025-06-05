@@ -16,8 +16,8 @@ namespace GME1011A3
         //Constructor
         public Minion(int health, int armour)
         {
-            if (health <= 0 || health > 35)
-                health = 35;
+            if (health <= 0 || health > 40)
+                health = 40;
             _health = health;
 
             if (armour < 0 || armour > 5)
@@ -29,7 +29,7 @@ namespace GME1011A3
         public int GetArmour() { return _armour; }
 
         //armour reduces damage
-        public virtual void TakeDamage(int damage) { _health = (damage - _armour); }
+        public virtual void TakeDamage(int damage) { _health -= (damage - _armour); }
 
         //default damage is 5
         public virtual int DealDamage() { return 5; }

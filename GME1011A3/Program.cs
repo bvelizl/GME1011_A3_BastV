@@ -38,19 +38,21 @@ namespace GME1011A3
             int numAliveBaddies = numBaddies;
 
 
-            //List that contain Goblins and Skellies as foes of the hero.
+            //List that contain Goblins, Skellies, and Jack Frosts as foes of the hero.
             List<Minion> baddies = new List<Minion>();
 
 
-            //Now each baddie have 50% chances to be a Goblin, or a Skellie.
+            //Now each baddie have the same chances to be a Goblin, a Skellie, or Jack Frost.
             for (int i = 0; i < numBaddies; i++)
             {
-                int baddieRng = rng.Next(0,2);
+                int baddieRng = rng.Next(0,3);
 
                 if(baddieRng == 0)
                     baddies.Add(new Goblin(rng.Next(30, 36), rng.Next(1, 5), rng.Next(1, 10)));
-                else
+                if (baddieRng == 1)
                     baddies.Add(new Skellie(rng.Next(25, 31), 0));
+                if (baddieRng == 2)
+                    baddies.Add(new Jack_Frost(rng.Next(30, 41), rng.Next(5, 10), 12));
             
             }
 
@@ -75,7 +77,7 @@ namespace GME1011A3
                     indexOfEnemy++;
                 }
 
-                //hero deals damage first. CHECK IF THIS IS WORKING. (where is the moment that the damage is asked again?)
+                //hero deals damage first.
                 Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
 
                 int specialAttack = rng.Next(0,3);
@@ -87,7 +89,7 @@ namespace GME1011A3
                     heroDamage = hero.DealDamage();
 
                 //How much damage?
-                Console.WriteLine("Hero deals " + heroDamage + " heroic damage."); 
+                Console.WriteLine("Hero deals " + heroDamage + " heroic damage.");
                 baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
 
 
@@ -113,21 +115,33 @@ namespace GME1011A3
                 }
                 else //baddie survived, now attacks the hero
                 {
-                    //Code to make the minion do their special attack. 33% of chances depending on the type of the enemy.
+                    //Code to make the enemy do their special attack. 33% of chances to do it.
                     specialAttack = rng.Next(0,3);
                     int baddieDamage = 0;
 
                     if (specialAttack == 2 && baddies[indexOfEnemy] is Goblin)
+                    {
                         baddieDamage = ((Goblin)baddies[indexOfEnemy]).GoblinBite();
+                        hero.TakeDamage(baddieDamage);
+                    }
                     else if (specialAttack == 2 && baddies[indexOfEnemy] is Skellie)
+                    {
                         baddieDamage = ((Skellie)baddies[indexOfEnemy]).SkellieRattle();
+                        
+                    }
+                    else if (specialAttack == 2 && baddies[indexOfEnemy] is Jack_Frost)
+                    {
+                        baddieDamage = ((Jack_Frost)baddies[indexOfEnemy]).JackBufula();
+                        hero.TakeDamage(baddieDamage);
+                    }
+                        
                     else
-                        baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
+                    {
+                        baddieDamage = baddies[indexOfEnemy].DealDamage();
+                        hero.TakeDamage(baddieDamage);
+                    }
                     
                     Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
-                    hero.TakeDamage(baddieDamage); //hero takes damage
-
-
 
 
                     //TODO: The baddie doesn't ever use their special attack - but they should. Change the above to 
