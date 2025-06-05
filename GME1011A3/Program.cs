@@ -56,7 +56,7 @@ namespace GME1011A3
             
             }
 
-            //this should work even after you make the changes above
+            //Enemies printed to see its class, and values.
             Console.WriteLine("Here are the baddies!!!");
             for(int i = 0; i < baddies.Count; i++)
             {
@@ -77,7 +77,7 @@ namespace GME1011A3
                     indexOfEnemy++;
                 }
 
-                //hero deals damage first.
+                //hero deals damage first. 33% of chances to do the special attack (Berserk).
                 Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
 
                 int specialAttack = rng.Next(0,3);
@@ -89,23 +89,11 @@ namespace GME1011A3
                     heroDamage = hero.DealDamage();
 
                 //How much damage?
+                //Now we can also see the actual health of the current enemy (it depends on its armour to see how much damage the hero causes).
                 Console.WriteLine("Hero deals " + heroDamage + " heroic damage.");
                 baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
+                Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " current health is: " + baddies[indexOfEnemy].GetHealth() + "\n");
 
-
-
-
-                //TODO: The hero doesn't ever use their special attack - but they should. Change the above to 
-                //have a 33% chance that the hero uses their special, and 67% that they use their regular attack.
-                //If the hero doesn't have enough special power to use their special attack, they do their regular 
-                //attack instead - but make a note of it in the output. There's no way for the hero to get more special
-                //power points, but if you want to craft a way for that to happen, that's fine.
-
-
-
-
-                //NOTE to coders - armour affects how much damage goblins take, and skellies take
-                //half damage - remember that when reviewing the output
 
                 //did we vanquish the baddie we were battling?
                 if (baddies[indexOfEnemy].isDead())
@@ -127,14 +115,14 @@ namespace GME1011A3
                     else if (specialAttack == 2 && baddies[indexOfEnemy] is Skellie)
                     {
                         baddieDamage = ((Skellie)baddies[indexOfEnemy]).SkellieRattle();
-                        
+                        hero.TakeDamage(baddieDamage);
                     }
                     else if (specialAttack == 2 && baddies[indexOfEnemy] is Jack_Frost)
                     {
                         baddieDamage = ((Jack_Frost)baddies[indexOfEnemy]).JackBufula();
                         hero.TakeDamage(baddieDamage);
                     }
-                        
+                    //if not, 67% of chances that the enemy do a regular attack.    
                     else
                     {
                         baddieDamage = baddies[indexOfEnemy].DealDamage();
@@ -144,13 +132,8 @@ namespace GME1011A3
                     Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
 
 
-                    //TODO: The baddie doesn't ever use their special attack - but they should. Change the above to 
-                    //have a 33% chance that the baddie uses their special, and 67% that they use their regular attack.
-                    
 
-
-
-                    //let's look in on our hero.
+                    //let's check our hero.
                     Console.WriteLine(hero.GetName() + " has " + hero.GetHealth() + " health remaining.");
                     if (hero.isDead()) //did the hero die
                     {

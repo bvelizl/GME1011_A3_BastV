@@ -9,13 +9,13 @@ namespace GME1011A3
     internal class Jack_Frost : Minion
     {
 
-        //Jack Frost use magic to attack the hero.
+        //Jack Frost use magic for his special attack.
         private int _magic;
 
         //Constructor for the mighty Jack Frost.
         public Jack_Frost(int health, int armour, int magic) : base(health, armour)
         {
-            if (magic < 0 || magic > 30)
+            if (magic < 0 || magic > 12)
                 magic = 12;
             _magic = magic;
         }
@@ -28,7 +28,7 @@ namespace GME1011A3
         }
 
         //Jack Frost special. The idea is to use its magic to massively
-        //increase the damage to the hero. There is a change to do a special of 48 points of damage.
+        //increase his attack. There is a chance to do a special of 36 points of damage.
         public int JackBufula()
         {
             Console.WriteLine("BUFULA!");
